@@ -1,12 +1,33 @@
 package net.songpon.config;
 
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import javax.sql.DataSource;
 
 /**
  *
  */
+@Configuration
 @EnableAsync
 @ComponentScan
 public class TumTodoConfig {
+
+    @Primary
+    @Bean
+    public DataSourceProperties fooDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Primary
+    @Bean
+    public DataSource fooDataSource() {
+        return fooDataSourceProperties().initializeDataSourceBuilder().build();
+    }
 }
