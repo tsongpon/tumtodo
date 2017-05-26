@@ -1,18 +1,24 @@
 package net.songpon.v1.transport;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  *
  */
 public class TodoTransport {
-    private Integer id;
+    private String id;
+    @NotNull(message = "title cannot be blank")
+    @Size(max = 256, message = "title cannot be logger 256 char")
     private String title;
+    @Size(max = 1000, message = "description cannot be logger 1000 char")
     private String description;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
