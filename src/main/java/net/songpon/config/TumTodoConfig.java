@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.sql.DataSource;
@@ -21,13 +22,18 @@ public class TumTodoConfig {
 
     @Primary
     @Bean
-    public DataSourceProperties fooDataSourceProperties() {
+    public DataSourceProperties getDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Primary
     @Bean
-    public DataSource fooDataSource() {
-        return fooDataSourceProperties().initializeDataSourceBuilder().build();
+    public DataSource getDataSource() {
+        return getDataSourceProperties().initializeDataSourceBuilder().build();
+    }
+
+    @Bean
+    public JdbcTemplate getJdbcTemplate() {
+        return new JdbcTemplate(getDataSource());
     }
 }
