@@ -9,7 +9,7 @@
 
     <changeSet author="songpon" id="todos-20170525">
         <createTable tableName="todo">
-            <column autoIncrement="false" name="id" type="CHAR(38)">
+            <column autoIncrement="false" name="id" type="CHAR(36)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="VARCHAR(255)">

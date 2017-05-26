@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 /**
@@ -33,5 +35,10 @@ public class TumTodoConfig {
     @Bean
     public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(getDataSource());
+    }
+
+    @Bean
+    public Filter shallowEtagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
     }
 }
