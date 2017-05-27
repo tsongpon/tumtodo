@@ -38,4 +38,15 @@ public class TumtodoErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, transport,
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
+
+    @ExceptionHandler(value = { Exception.class})
+    protected ResponseEntity<Object> handleExcpetion(Exception ex, WebRequest request) {
+        ErrorTransport transport = new ErrorTransport();
+        transport.setTime(new Date());
+        transport.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        transport.setMessage(ex.getMessage());
+        return handleExceptionInternal(ex, transport,
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 }

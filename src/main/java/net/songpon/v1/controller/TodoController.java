@@ -51,7 +51,7 @@ public class TodoController {
         TodoQuery query = new TodoQuery.QueryBuilder().size(size).start(start).build();
         List<TodoTransport> todoTransports = TodoMapper.map(this.service.listTodos(query));
         TodoResponseTransport todoResponseTransport = new TodoResponseTransport();
-        todoResponseTransport.setSize(todoTransports.size());
+        todoResponseTransport.setSize(size);
         todoResponseTransport.setData(todoTransports);
         todoResponseTransport.setTotal(service.count(query));
         return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(todoResponseTransport);
@@ -85,13 +85,13 @@ public class TodoController {
             throw new BadRequestException(message);
         }
         service.update(TodoMapper.map(transport));
-        return ResponseEntity.ok().cacheControl(CacheControl.noCache()).build();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTodo(@PathVariable("id") String id) {
         LOGGER.info("Deleting todo by id {}", id);
         service.delete(id);
-        return ResponseEntity.ok().cacheControl(CacheControl.noCache()).build();
+        return ResponseEntity.ok().build();
     }
 }

@@ -23,7 +23,7 @@ public class TodoMapper {
         return transport;
     }
 
-    public static List<TodoTransport> map(List<Todo> transports) {
-        return transports.stream().map(TodoMapper::map).collect(Collectors.toList());
+    public static List<TodoTransport> map(List<Todo> todos) {
+        return todos.stream().map(TodoMapper::map).collect(Collectors.toList());
     }
 }

@@ -30,7 +30,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("TODO API")
+                .title("TODO APIs")
                 .description("Todo REST API")
                 .version("1")
                 .build();
