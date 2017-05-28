@@ -56,7 +56,7 @@ public class TodoController {
         TodoQuery query = new TodoQuery.QueryBuilder().size(size).start(start).title(title).build();
         List<TodoTransport> todoTransports = TodoMapper.map(this.service.listTodos(query));
         TodoResponseTransport todoResponseTransport = new TodoResponseTransport();
-        todoResponseTransport.setSize(size);
+        todoResponseTransport.setSize(todoTransports.size());
         todoResponseTransport.setData(todoTransports);
         todoResponseTransport.setTotal(service.count(query));
         return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(todoResponseTransport);
