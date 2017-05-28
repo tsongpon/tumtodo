@@ -7,6 +7,7 @@ import net.songpon.service.TodoService;
 import net.songpon.v1.mapper.TodoMapper;
 import net.songpon.v1.transport.TodoResponseTransport;
 import net.songpon.v1.transport.TodoTransport;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.CacheControl;
@@ -83,6 +84,14 @@ public class TodoController {
                                         @RequestBody @Valid  TodoTransport transport,
                                         Errors errors) {
         LOGGER.info("Updating todo by id {}", id);
+        if (StringUtils.isBlank(transport.getId())) {
+            LOGGER.warn("Got update todo with blank id");
+            throw new BadRequestException("Id is required to update todo");
+        }
+        if (!id.equals(transport.getId())) {
+            LOGGER.warn("Got update todo with id change");
+            throw new BadRequestException("Id can not be changed");
+        }
         if (errors.hasErrors()) {
             String message = errors.getAllErrors().stream()
                     .map(e -> e.getDefaultMessage()).collect(Collectors.joining(","));

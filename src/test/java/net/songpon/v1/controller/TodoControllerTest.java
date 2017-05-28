@@ -62,7 +62,7 @@ public class TodoControllerTest {
         todos.add(mockTodo("44d4cdf2-0d47-4975-999a-1d82ec138ber"));
         todos.add(mockTodo("55d4cdf2-0d47-4975-999a-1d82ec138btt"));
         todos.add(mockTodo("66d4cdf2-0d47-4975-999a-1d82ec138bi8"));
-        String expectedJson = "{\"size\":4,\"total\":6,\"data\":[{\"id\":\"11d4cdf2-0d47-4975-999a-1d82ec138bbc\"" +
+        String expectedJson = "{\"size\":6,\"total\":6,\"data\":[{\"id\":\"11d4cdf2-0d47-4975-999a-1d82ec138bbc\"" +
                 ",\"title\":\"mock todo\",\"description\":\"Mocking todo and test with mockito\"}" +
                 ",{\"id\":\"22d4cdf2-0d47-4975-999a-1d82ec138bzz\",\"title\":\"mock todo\"" +
                 ",\"description\":\"Mocking todo and test with mockito\"}" +
@@ -76,7 +76,7 @@ public class TodoControllerTest {
                 ",\"description\":\"Mocking todo and test with mockito\"}]}";
         when(service.listTodos(any(TodoQuery.class))).thenReturn(todos);
         when(service.count(any(TodoQuery.class))).thenReturn(6);
-        this.mockMvc.perform(get("/api/v1/todos?size=4")).andDo(print())
+        this.mockMvc.perform(get("/api/v1/todos?size=6")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(content().json(expectedJson));
