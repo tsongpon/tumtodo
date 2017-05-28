@@ -46,9 +46,10 @@ public class TodoController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> listTodos(@RequestParam(value = "size", defaultValue = "5")Integer size,
-                                       @RequestParam(value = "start", defaultValue = "0")Integer start) {
+                                       @RequestParam(value = "start", defaultValue = "0")Integer start,
+                                       @RequestParam(value = "title", required = false)String title) {
         LOGGER.debug("Listing todos, size {}", size);
-        TodoQuery query = new TodoQuery.QueryBuilder().size(size).start(start).build();
+        TodoQuery query = new TodoQuery.QueryBuilder().size(size).start(start).title(title).build();
         List<TodoTransport> todoTransports = TodoMapper.map(this.service.listTodos(query));
         TodoResponseTransport todoResponseTransport = new TodoResponseTransport();
         todoResponseTransport.setSize(size);
