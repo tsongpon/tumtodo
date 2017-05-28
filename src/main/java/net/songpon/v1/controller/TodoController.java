@@ -21,7 +21,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Main controller for todos api
  *
+ * cache strategy is no-cache for every get methods,
+ * since we haven't had infrastructure to support HTTP caching (and invalidate cache mechanism) yet.
  */
 
 @RestController
