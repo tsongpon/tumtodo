@@ -10,6 +10,7 @@ import net.songpon.v1.transport.TodoTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.CacheControl;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,9 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("/api/v1/todos")
+@RequestMapping(value = "/api/v1/todos",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE)
 public class TodoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoController.class);
