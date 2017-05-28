@@ -6,7 +6,7 @@ import java.util.Date;
  *
  */
 public class ErrorTransport {
-    private Date time;
+    private String time;
     private int statusCode;
     private String message;
 
@@ -26,11 +26,11 @@ public class ErrorTransport {
         this.message = message;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

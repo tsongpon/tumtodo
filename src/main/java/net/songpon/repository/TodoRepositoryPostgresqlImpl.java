@@ -41,8 +41,8 @@ public class TodoRepositoryPostgresqlImpl implements TodoRepository {
             parameters.addValue("id", id);
             todo = jdbcTemplate.queryForObject(sql, parameters, mapper);
         } catch (EmptyResultDataAccessException e) {
-            LOGGER.warn("Todo not found for id ", id);
-            throw new EntityFoundException("Todo not exist for id "+id, e);
+            LOGGER.warn("Todo is not found for id ", id);
+            throw new EntityFoundException("Todo is not exist for id "+id, e);
         }
 
         return todo;
