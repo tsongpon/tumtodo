@@ -39,3 +39,9 @@ APIs documentation :
 > http://localhost:8080/swagger-ui.html
 
  
+**API versioning**
+
+This api inten to support mulit versioning by emben api version on service's url, here the api verioning info
+
+> http://localhost:8080/api/versions
+
