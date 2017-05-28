@@ -29,9 +29,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping(value = "/api/v1/todos",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/todos")
 public class TodoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoController.class);
@@ -43,14 +41,14 @@ public class TodoController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getTodo(@PathVariable("id") String id) {
         LOGGER.debug("Getting todo by id {}", id);
         Todo todo = service.getTodo(id);
         return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(TodoMapper.map(todo));
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listTodos(@RequestParam(value = "size", defaultValue = "5")Integer size,
                                        @RequestParam(value = "start", defaultValue = "0")Integer start,
                                        @RequestParam(value = "title", required = false)String title) {
@@ -65,7 +63,7 @@ public class TodoController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createTodo(@RequestBody @Valid TodoTransport transport, Errors errors) {
         LOGGER.info("Creating new todo with title {}", transport.getTitle());
         if (errors.hasErrors()) {
@@ -80,7 +78,7 @@ public class TodoController {
                 .buildAndExpand(createdTodo.getId()).toUri()).build();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateTodo(@PathVariable("id") String id,
                                         @RequestBody @Valid  TodoTransport transport,
                                         Errors errors) {
