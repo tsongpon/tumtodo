@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import static java.time.ZoneOffset.UTC;
 
 /**
  *
@@ -23,13 +25,11 @@ import java.util.Date;
 public class TumtodoErrorHandler extends ResponseEntityExceptionHandler {
 
     private final Logger LOGGER = LoggerFactory.getLogger(TumtodoErrorHandler.class);
-    private final String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
     @ExceptionHandler(value = { EntityFoundException.class})
     protected ResponseEntity<Object> handleEntityNotFound(RuntimeException ex, WebRequest request) {
         ErrorTransport transport = new ErrorTransport();
-        SimpleDateFormat formatter = new SimpleDateFormat(TIME_FORMAT);
-        transport.setTime(formatter.format(new Date()));
+        transport.setTime(LocalDateTime.now(ZoneId.from(UTC)));
         transport.setStatusCode(HttpStatus.NOT_FOUND.value());
         transport.setMessage(ex.getMessage());
         LOGGER.error("Error occurred while processing request ", ex);
@@ -40,8 +40,7 @@ public class TumtodoErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { BadRequestException.class})
     protected ResponseEntity<Object> handleBadRequestBody(RuntimeException ex, WebRequest request) {
         ErrorTransport transport = new ErrorTransport();
-        SimpleDateFormat formatter = new SimpleDateFormat(TIME_FORMAT);
-        transport.setTime(formatter.format(new Date()));
+        transport.setTime(LocalDateTime.now(ZoneId.from(UTC)));
         transport.setStatusCode(HttpStatus.BAD_REQUEST.value());
         transport.setMessage(ex.getMessage());
         LOGGER.error("Error occurred while processing request ", ex);
@@ -53,8 +52,7 @@ public class TumtodoErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { Exception.class})
     protected ResponseEntity<Object> handleExcpetion(Exception ex, WebRequest request) {
         ErrorTransport transport = new ErrorTransport();
-        SimpleDateFormat formatter = new SimpleDateFormat(TIME_FORMAT);
-        transport.setTime(formatter.format(new Date()));
+        transport.setTime(LocalDateTime.now(ZoneId.from(UTC)));
         transport.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         transport.setMessage(ex.getMessage());
         LOGGER.error("Error occurred while processing request ", ex);

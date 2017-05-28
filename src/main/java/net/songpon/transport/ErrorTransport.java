@@ -1,12 +1,13 @@
 package net.songpon.transport;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  *
  */
 public class ErrorTransport {
-    private String time;
+    private LocalDateTime time;
     private int statusCode;
     private String message;
 
@@ -26,11 +27,11 @@ public class ErrorTransport {
         this.message = message;
     }
 
-    public String getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 }
